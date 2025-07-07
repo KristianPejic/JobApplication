@@ -34,12 +34,13 @@ public class SecurityConfig {
 
 		http.csrf(customizer -> customizer.disable())
 				.authorizeHttpRequests(request -> request
-						.requestMatchers("/jobPosts", "/jobPost/**", "/jobPosts/keyword/**", "/load").permitAll() // Allow
-																													// public
-																													// access
-																													// to
-																													// these
-																													// endpoints
+						.requestMatchers("/jobPosts", "/jobPost/**", "/jobPosts/keyword/**", "/load").permitAll()
+						.requestMatchers("/register").permitAll() // Add this to your security config // Allow
+						// public
+						// access
+						// to
+						// these
+						// endpoints
 						.anyRequest().authenticated()) // Require auth for other endpoints
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

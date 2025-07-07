@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kiko.springbootrest.model.JobPost;
+import com.kiko.springbootrest.model.User;
 import com.kiko.springbootrest.service.JobService;
+import com.kiko.springbootrest.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,6 +22,14 @@ public class JobRestController {
 
 	@Autowired
 	private JobService service;
+	@Autowired
+	private UserService userService;
+
+	@PostMapping("/register")
+	public String register(@RequestBody User user) {
+		userService.saveUser(user);
+		return "User registered successfully";
+	}
 
 	@GetMapping("jobPosts")
 	public List<JobPost> getAllJobs() {
