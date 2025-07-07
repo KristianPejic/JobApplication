@@ -33,7 +33,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(customizer -> customizer.disable())
-				.authorizeHttpRequests(request -> request.anyRequest().authenticated())
+				.authorizeHttpRequests(request -> request
+						.requestMatchers("/jobPosts", "/jobPost/**", "/jobPosts/keyword/**", "/load").permitAll() // Allow
+																													// public
+																													// access
+																													// to
+																													// these
+																													// endpoints
+						.anyRequest().authenticated()) // Require auth for other endpoints
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
