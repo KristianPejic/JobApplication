@@ -5,7 +5,11 @@ services:
     container_name: spring-boot-rest
     image: spring-boot-rest:latest
     environment:
-      - MYSQL_HOST=mysql
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jobapp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
     ports:
       - 80:8080
     networks:
