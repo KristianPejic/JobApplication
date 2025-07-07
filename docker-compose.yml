@@ -17,7 +17,8 @@ services:
     volumes:
       - java-data:/app/uploads
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: always
 
   mysql:
@@ -33,6 +34,22 @@ services:
       - mysql-data:/var/lib/mysql
     ports:
       - 3306:3306
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-padmin123",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: always
 
 networks:
